@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Moscow Motivator - For My Amazing Wife</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #1a2a6c, #b21f1f, #fdbb2d);
+            color: #fff;
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+        }
+        
+        /* 3D Penguin Animation */
+        #penguin-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+        }
+        
+        .penguin {
+            position: absolute;
+            width: 80px;
+            height: 100px;
+            bottom: -100px;
+            transform-style: preserve-3d;
+            animation: jump 8s infinite ease-in-out;
+        }
+        
+        .penguin:nth-child(1) { left: 10%; animation-delay: 0s; }
+        .penguin:nth-child(2) { left: 25%; animation-delay: 1s; }
+        .penguin:nth-child(3) { left: 40%; animation-delay: 2s; }
+        .penguin:nth-child(4) { left: 60%; animation-delay: 3s; }
+        .penguin:nth-child(5) { left: 80%; animation-delay: 4s; }
+        .penguin:nth-child(6) { left: 15%; animation-delay: 5s; }
+        .penguin:nth-child(7) { left: 50%; animation-delay: 6s; }
+        .penguin:nth-child(8) { left: 75%; animation-delay: 7s; }
+        
+        .penguin-body {
+            position: absolute;
+            width: 80px;
+            height: 90px;
+            background: #000;
+            border-radius: 40px 40px 35px 35px;
+            transform: translateZ(10px);
+        }
+        
+        .penguin-belly {
+            position: absolute;
+            width: 60px;
+            height: 65px;
+            background: #fff;
+            border-radius: 30px 30px 25px 25px;
+            top: 15px;
+            left: 10px;
+            transform: translateZ(15px);
+        }
+        
+        .penguin-face {
+            position: absolute;
+            width: 50px;
+            height: 35px;
+            background: #fff;
+            border-radius: 25px 25px 15px 15px;
+            top: 5px;
+            left: 15px;
+            transform: translateZ(20px);
+        }
+        
+        .penguin-eye {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background: #000;
+            border-radius: 50%;
+            top: 12px;
+            transform: translateZ(25px);
+        }
+        
+        .penguin-eye.left { left: 15px; }
+        .penguin-eye.right { right: 15px; }
+        
+        .penguin-beak {
+            position: absolute;
+            width: 15px;
+            height: 10px;
+            background: #ff9800;
+            border-radius: 0 0 7px 7px;
+            top: 25px;
+            left: 32px;
+            transform: translateZ(25px);
+        }
+        
+        .penguin-wing {
+            position: absolute;
+            width: 25px;
+            height: 40px;
+            background: #000;
+            border-radius: 12px;
+            transform: translateZ(5px);
+        }
+        
+        .penguin-wing.left {
+            top: 25px;
+            left: -5px;
+            transform-origin: right center;
+            animation: wingFlapLeft 1s infinite ease-in-out;
+        }
+        
+        .penguin-wing.right {
+            top: 25px;
+            right: -5px;
+            transform-origin: left center;
+            animation: wingFlapRight 1s infinite ease-in-out;
+        }
+        
+        .penguin-feet {
+            position: absolute;
+            width: 20px;
+            height: 10px;
+            background: #ff9800;
+            border-radius: 5px;
+            bottom: -5px;
+            transform: translateZ(5px);
+        }
+        
+        .penguin-feet.left { left: 15px; }
+        .penguin-feet.right { right: 15px; }
+        
+        @keyframes jump {
+            0%, 100% {
+                bottom: -100px;
+                transform: translateY(0) rotate(0deg);
+            }
+            10% {
+                transform: translateY(0) rotate(5deg);
+            }
+            50% {
+                bottom: 80vh;
+                transform: translateY(0) rotate(0deg);
+            }
+            90% {
+                transform: translateY(0) rotate(-5deg);
+            }
+        }
+        
+        @keyframes wingFlapLeft {
+            0%, 100% { transform: translateZ(5px) rotate(-10deg); }
+            50% { transform: translateZ(5px) rotate(20deg); }
+        }
+        
+        @keyframes wingFlapRight {
+            0%, 100% { transform: translateZ(5px) rotate(10deg); }
+            50% { transform: translateZ(5px) rotate(-20deg); }
+        }
+        
+        /* Snow effect */
+        .snow {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background: white;
+            border-radius: 50%;
+            filter: blur(1px);
+            animation: snowfall linear infinite;
+        }
+        
+        @keyframes snowfall {
+            0% {
+                transform: translateY(-10px) translateX(0);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(100vh) translateX(20px);
+                opacity: 0;
+            }
+        }
+        
+        /* Content styling */
+        .container {
+            max-width: 800px;
+            width: 90%;
+            background: rgba(0, 0, 0, 0.7);
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            margin: 40px auto;
+            position: relative;
+            z-index: 10;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+            color: #fdbb2d;
+        }
+        
+        .subtitle {
+            font-size: 1.2rem;
+            color: #ccc;
+            margin-bottom: 20px;
+        }
+        
+        .input-section, .output-section {
+            margin-bottom: 30px;
+        }
+        
+        h2 {
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+            color: #b21f1f;
+            border-bottom: 2px solid #b21f1f;
+            padding-bottom: 5px;
+        }
+        
+        textarea {
+            width: 100%;
+            height: 120px;
+            padding: 15px;
+            border-radius: 10px;
+            border: 2px solid #1a2a6c;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            font-size: 1rem;
+            resize: vertical;
+        }
+        
+        textarea::placeholder {
+            color: #aaa;
+        }
+        
+        .button-group {
+            display: flex;
+            gap: 15px;
+            margin-top: 15px;
+            flex-wrap: wrap;
+        }
+        
+        button {
+            padding: 12px 25px;
+            border: none;
+            border-radius: 8px;
+            background: #b21f1f;
+            color: white;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            flex: 1;
+            min-width: 150px;
+        }
+        
+        button:hover {
+            background: #fdbb2d;
+            color: #1a2a6c;
+            transform: translateY(-3px);
+        }
+        
+        .output-box {
+            background: rgba(26, 42, 108, 0.3);
+            border-radius: 10px;
+            padding: 20px;
+            min-height: 150px;
+            border: 2px solid #fdbb2d;
+            font-size: 1.2rem;
+            line-height: 1.6;
+        }
+        
+        .russian-theme {
+            font-style: italic;
+            color: #fdbb2d;
+        }
+        
+        .message-examples {
+            margin-top: 30px;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 10px;
+        }
+        
+        .example-list {
+            list-style-type: none;
+            margin-top: 10px;
+        }
+        
+        .example-list li {
+            padding: 8px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .example-list li:hover {
+            color: #fdbb2d;
+            padding-left: 10px;
+        }
+        
+        footer {
+            margin-top: 30px;
+            text-align: center;
+            color: #ccc;
+            font-size: 0.9rem;
+        }
+        
+        .heart {
+            color: #ff4d4d;
+            animation: heartbeat 1.5s ease-in-out infinite;
+        }
+        
+        @keyframes heartbeat {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+        
+        @media (max-width: 600px) {
+            .container {
+                padding: 15px;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+            
+            h2 {
+                font-size: 1.5rem;
+            }
+            
+            .penguin {
+                transform: scale(0.7);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 3D Penguin Animation -->
+    <div id="penguin-container"></div>
+    
+    <!-- Content Container -->
+    <div class="container">
+        <header>
+            <h1>Moscow Motivator</h1>
+            <p class="subtitle">Translate your loving message with Russian strength and passion</p>
+        </header>
+        
+        <section class="input-section">
+            <h2>Your Message</h2>
+            <textarea id="inputMessage" placeholder="Type your motivational message here...">I know abhi aap kafi tension mein ho mocks acche nahi ja rahe but jyada fikra mat lo Sab Ho jayega phir tension nahi lete theek hai I know frustrating hai but dire dire sab theek ho jaega I know aap Kar Logi apne aap ko har Kisi Se compare mat karo bus khud per Dhyan do aur khud Se compare karo theek hai I know iss bari bahut achcha jaega and kar loge aap</textarea>
+            <div class="button-group">
+                <button id="translateBtn">Translate to Moscow Style</button>
+                <button id="clearBtn">Clear Message</button>
+                <button id="surpriseBtn">Surprise Message</button>
+            </div>
+        </section>
+        
+        <section class="output-section">
+            <h2>Moscow Translation</h2>
+            <div id="outputMessage" class="output-box">
+                Your translated message will appear here...
+            </div>
+        </section>
+        
+        <section class="message-examples">
+            <h2>Message Examples</h2>
+            <p>Need inspiration? Try these examples:</p>
+            <ul class="example-list">
+                <li>You are strong and capable of achieving anything you set your mind to.</li>
+                <li>Your determination inspires everyone around you.</li>
+                <li>Remember that every challenge makes you stronger.</li>
+                <li>Your inner strength shines brighter than you realize.</li>
+            </ul>
+        </section>
+        
+        <footer>
+            <p>Created with <span class="heart">❤️</span> for my amazing wife</p>
+        </footer>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const inputMessage = document.getElementById('inputMessage');
+            const outputMessage = document.getElementById('outputMessage');
+            const translateBtn = document.getElementById('translateBtn');
+            const clearBtn = document.getElementById('clearBtn');
+            const surpriseBtn = document.getElementById('surpriseBtn');
+            const exampleItems = document.querySelectorAll('.example-list li');
+            const penguinContainer = document.getElementById('penguin-container');
+            
+            // Create penguins
+            function createPenguins() {
+                for (let i = 0; i < 8; i++) {
+                    const penguin = document.createElement('div');
+                    penguin.className = 'penguin';
+                    
+                    penguin.innerHTML = `
+                        <div class="penguin-body"></div>
+                        <div class="penguin-belly"></div>
+                        <div class="penguin-face"></div>
+                        <div class="penguin-eye left"></div>
+                        <div class="penguin-eye right"></div>
+                        <div class="penguin-beak"></div>
+                        <div class="penguin-wing left"></div>
+                        <div class="penguin-wing right"></div>
+                        <div class="penguin-feet left"></div>
+                        <div class="penguin-feet right"></div>
+                    `;
+                    
+                    penguinContainer.appendChild(penguin);
+                }
+            }
+            
+            // Create snow effect
+            function createSnow() {
+                for (let i = 0; i < 50; i++) {
+                    const snow = document.createElement('div');
+                    snow.className = 'snow';
+                    
+                    // Random properties for snowflakes
+                    const size = Math.random() * 5 + 5;
+                    const left = Math.random() * 100;
+                    const animationDuration = Math.random() * 5 + 5;
+                    const animationDelay = Math.random() * 5;
+                    
+                    snow.style.width = `${size}px`;
+                    snow.style.height = `${size}px`;
+                    snow.style.left = `${left}vw`;
+                    snow.style.animationDuration = `${animationDuration}s`;
+                    snow.style.animationDelay = `${animationDelay}s`;
+                    
+                    penguinContainer.appendChild(snow);
+                }
+            }
+            
+            // Moscow-style translations
+            const moscowTranslations = {
+                "strong": "сильный как медведь",
+                "beautiful": "прекрасный как собор Василия Блаженного",
+                "amazing": "удивительный как русская зима",
+                "love": "любовь вечна как Кремль",
+                "powerful": "могучий как Волга",
+                "smart": "умный как Толстой",
+                "brave": "храбрый как казак",
+                "determined": "решительный как советский космонавт",
+                "inspiring": "вдохновляющий как балет Большого театра",
+                "capable": "способный построить коммунизм",
+                "wonderful": "чудесный как матрешка",
+                "special": "особенный как икра белуги",
+                "persistent": "настойчивый как Ленин в октябре",
+                "resilient": "стойкий как сибирская зима",
+                "motivated": "мотивированный как рабочий пятилетки",
+                "tension": "напряжение",
+                "frustrating": "разочаровывающий",
+                "compare": "сравнивать",
+                "focus": "фокус",
+                "success": "успех",
+                "better": "лучше",
+                "achieve": "достигать",
+                "believe": "верить",
+                "know": "знать",
+                "good": "хороший",
+                "well": "хорошо",
+                "will": "будет",
+                "can": "может",
+                "do": "делать"
+            };
+            
+            // Surprise messages
+            const surpriseMessages = [
+                "In the heart of Moscow, your strength shines brighter than the Kremlin stars. You are capable of conquering any challenge that comes your way, my love.",
+                "Like the mighty Volga River, your determination flows endlessly. Remember that every obstacle only makes you stronger, my dear wife.",
+                "Your spirit is as resilient as a Russian winter - harsh conditions only make you more beautiful and powerful. I believe in you completely.",
+                "In the grand ballet of life, you are the prima ballerina of the Bolshoi Theatre - graceful, powerful, and inspiring to all who watch you perform.",
+                "Your mind is as sharp as a Cossack's sword, cutting through doubt and fear. You have everything you need to succeed, my beloved."
+            ];
+            
+            // Translate function
+            function translateToMoscowStyle(text) {
+                let translated = text;
+                
+                // Replace words with Moscow-style equivalents
+                for (const [key, value] of Object.entries(moscowTranslations)) {
+                    const regex = new RegExp(`\\b${key}\\b`, 'gi');
+                    translated = translated.replace(regex, value);
+                }
+                
+                // Add Russian-style phrases randomly
+                const russianPhrases = [
+                    "Как говорил Ленин,",
+                    "В душе русского человека,",
+                    "По примеру советских героев,",
+                    "С силой русской души,",
+                    "Как в великой русской традиции,"
+                ];
+                
+                if (Math.random() > 0.5) {
+                    const randomPhrase = russianPhrases[Math.floor(Math.random() * russianPhrases.length)];
+                    translated = randomPhrase + " " + translated;
+                }
+                
+                return translated;
+            }
+            
+            // Event listeners
+            translateBtn.addEventListener('click', function() {
+                const text = inputMessage.value.trim();
+                if (text) {
+                    const translated = translateToMoscowStyle(text);
+                    outputMessage.innerHTML = `<span class="russian-theme">${translated}</span>`;
+                } else {
+                    outputMessage.textContent = "Please enter a message to translate.";
+                }
+            });
+            
+            clearBtn.addEventListener('click', function() {
+                inputMessage.value = "";
+                outputMessage.textContent = "Your translated message will appear here...";
+            });
+            
+            surpriseBtn.addEventListener('click', function() {
+                const randomMessage = surpriseMessages[Math.floor(Math.random() * surpriseMessages.length)];
+                inputMessage.value = randomMessage;
+                const translated = translateToMoscowStyle(randomMessage);
+                outputMessage.innerHTML = `<span class="russian-theme">${translated}</span>`;
+            });
+            
+            // Example click events
+            exampleItems.forEach(item => {
+                item.addEventListener('click', function() {
+                    inputMessage.value = this.textContent;
+                    const translated = translateToMoscowStyle(this.textContent);
+                    outputMessage.innerHTML = `<span class="russian-theme">${translated}</span>`;
+                });
+            });
+            
+            // Initialize animations
+            createPenguins();
+            createSnow();
+            
+            // Auto-translate the pre-filled message
+            setTimeout(() => {
+                translateBtn.click();
+            }, 1000);
+        });
+    </script>
+</body>
+</html>
